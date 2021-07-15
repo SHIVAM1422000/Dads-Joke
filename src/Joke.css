@@ -52,6 +52,11 @@
 
 
 .fa-arrow-up , .fa-arrow-down{
+  
+   font-size: 1rem;
+  margin-top: 18px;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
 
-    
 }
