@@ -1,8 +1,9 @@
 // import React, { useState } from 'react';
 import React, { Component } from 'react';
 import axios from "axios";
-import "./DADJOKE.css";
 import Joke from './Joke';
+import "./DADJOKE.css"
+// import "./JokeList.css"
 // import uuid from 'uuid';
 import { v4 as uuidv4 } from 'uuid';
 class DADJOKE extends Component{
@@ -10,17 +11,20 @@ class DADJOKE extends Component{
     static defaultProps={
          totalJokes:10
     }
+  
 
     constructor(props){
         super(props);
-        this.state={
-             jokes:[]
-        }
+        this.state={  
+
+             jokes:JSON.parse(window.localStorage.getItem("jokes") || "[]")
+            //  jokes:JSON.parse("[]")
+        };
         this.handleVote=this.handleVote.bind(this);
     }
 
-  async componentDidMount(){
-      
+  
+  async getJokes(){
     var data=[];
 
     while(data.length<this.props.totalJokes){
@@ -32,9 +36,15 @@ class DADJOKE extends Component{
         //  console.log(element.data.joke);
     }
   
-
     this.setState({jokes:data});
+  window.localStorage.setItem("jokes",JSON.stringify(data));
 
+  }  
+
+   componentDidMount(){
+      if(this.state.jokes.length==0){
+        this.getJokes();
+      }
   }
 
 handleVote(id,delta){
@@ -45,7 +55,8 @@ this.setState(state=>({
   jokes:state.jokes.map(j=>
     j.id===id?{...j,votes:j.votes+delta}:j
   )
-}));
+}),
+()=> window.localStorage.setItem("jokes",JSON.stringify(this.state.jokes)));
    
 }
 
