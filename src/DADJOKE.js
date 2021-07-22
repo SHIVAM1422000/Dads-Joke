@@ -17,7 +17,8 @@ class DADJOKE extends Component{
         super(props);
         this.state={  
 
-             jokes:JSON.parse(window.localStorage.getItem("jokes") || "[]")
+             jokes:JSON.parse(window.localStorage.getItem("jokes") || "[]"),
+             loading:false
             //  jokes:JSON.parse("[]")
         };
         this.handleVote=this.handleVote.bind(this);
@@ -37,7 +38,7 @@ class DADJOKE extends Component{
         //  console.log(element.data.joke);
     }
   
-    this.setState({jokes:[...this.state.jokes,...data]},()=> window.localStorage.setItem("jokes",JSON.stringify(this.state.jokes)));
+    this.setState({loading:false,jokes:[...this.state.jokes,...data]},()=> window.localStorage.setItem("jokes",JSON.stringify(this.state.jokes)));
   // window.localStorage.setItem("jokes",JSON.stringify(data));
 
   }  
@@ -59,11 +60,23 @@ handleVote(id,delta){
 }
 
 handleClick(){
+  this.setState({loading:true});
   this.getJokes();
 }
 
 
 render(){
+
+if(this.state.loading){
+  return(
+    
+    <div className="JokeList-spinner"> 
+       <i className="far fa-8x fa-laugh fa-spin"/>
+       <h1 className="JokesList-title">Loading...</h1>
+    </div>
+
+  );
+}
 
 return(
 
