@@ -1,3 +1,10 @@
+
+
+<h1> Site Preview </h1>
+<img src="https://user-images.githubusercontent.com/56889369/148671813-819c36f6-6793-4870-a92e-7e3294c52098.JPG">
+
+
+
 # Getting Started with Dad's Joke React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
